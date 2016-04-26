@@ -19,12 +19,13 @@ class CopyFilesFromRemote
             ->invoke(
                 'process:command:run', [
                     'command' => sprintf(
-                        "rsync -q%s %s:%s %s",
+                        "rsync -aq%s %s:%s %s",
                         $portSpec,
                         escapeshellarg($remoteConnection['user'] . '@' . $remoteConnection['host']),
                         escapeshellarg($this->normalisePath($remote['path'])),
                         escapeshellarg($this->normalisePath($local['path']))
-                    )
+                    ),
+                    'directory' => sys_get_temp_dir()
                 ]
             );
     }

@@ -12,7 +12,8 @@ class CopyFilesFromRemoteTest extends TaskTest
     public function test_it_builds_and_runs_rsync_command()
     {
         $this->runner->invoke('process:command:run', [
-            'command' => "rsync -q -e 'ssh -p2345' 'remote_user@remote.example.com':'/path/to/remote/files/' '/path/to/local/files/'"
+            'command' => "rsync -aq -e 'ssh -p2345' 'remote_user@remote.example.com':'/path/to/remote/files/' '/path/to/local/files/'",
+            'directory' => sys_get_temp_dir()
         ])
             ->shouldBeCalled()
             ->willReturn(new CommandResult(0, '', ''))
@@ -37,7 +38,8 @@ class CopyFilesFromRemoteTest extends TaskTest
     public function test_remote_port_can_be_omitted()
     {
         $this->runner->invoke('process:command:run', [
-            'command' => "rsync -q 'remote_user@remote.example.com':'/path/to/remote/files/' '/path/to/local/files/'"
+            'command' => "rsync -aq 'remote_user@remote.example.com':'/path/to/remote/files/' '/path/to/local/files/'",
+            'directory' => sys_get_temp_dir()
         ])
             ->shouldBeCalled()
             ->willReturn(new CommandResult(0, '', ''))
@@ -61,7 +63,8 @@ class CopyFilesFromRemoteTest extends TaskTest
     public function test_it_adds_trailing_slashes_if_not_present()
     {
         $this->runner->invoke('process:command:run', [
-            'command' => "rsync -q -e 'ssh -p2345' 'remote_user@remote.example.com':'/path/to/remote/files/' '/path/to/local/files/'"
+            'command' => "rsync -aq -e 'ssh -p2345' 'remote_user@remote.example.com':'/path/to/remote/files/' '/path/to/local/files/'",
+            'directory' => sys_get_temp_dir()
         ])
             ->shouldBeCalled()
             ->willReturn(new CommandResult(0, '', ''))
