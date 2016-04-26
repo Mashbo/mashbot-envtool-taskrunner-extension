@@ -3,9 +3,11 @@
 namespace Mashbo\Mashbot\Extensions\EnvToolTaskRunnerExtension\Tests;
 
 use Mashbo\Mashbot\Extensions\EnvToolTaskRunnerExtension\EnvToolTaskRunnerExtension;
+use Mashbo\Mashbot\Extensions\EnvToolTaskRunnerExtension\Tasks\CopyFilesFromRemote;
 use Mashbo\Mashbot\Extensions\EnvToolTaskRunnerExtension\Tasks\ImportRemoteDatabase;
 use Mashbo\Mashbot\Extensions\EnvToolTaskRunnerExtension\Tasks\Mysql\BuildMysqlDumpCommand;
 use Mashbo\Mashbot\Extensions\EnvToolTaskRunnerExtension\Tasks\Mysql\BuildMysqlImportCommand;
+use Mashbo\Mashbot\Extensions\EnvToolTaskRunnerExtension\Tasks\SyncFromRemoteEnv;
 use Mashbo\Mashbot\Extensions\ProcessTaskRunnerExtension\Process\BlockingProcessRunner;
 use Mashbo\Mashbot\TaskRunner\TaskRunner;
 
@@ -28,15 +30,29 @@ class EnvToolTaskRunnerExtensionTest extends \PHPUnit_Framework_TestCase
         $taskRunner
             ->expects($this->at(1))
             ->method('add')
-            ->with('env:database:mysql:import:command:build', $this->callback(function($arg) {
-                return $arg instanceof BuildMysqlImportCommand;
+            ->with('env:files:sync:pull', $this->callback(function($arg) {
+                return $arg instanceof CopyFilesFromRemote;
             }));
 
         $taskRunner
             ->expects($this->at(2))
             ->method('add')
+            ->with('env:database:mysql:import:command:build', $this->callback(function($arg) {
+                return $arg instanceof BuildMysqlImportCommand;
+            }));
+
+        $taskRunner
+            ->expects($this->at(3))
+            ->method('add')
             ->with('env:database:mysql:dump:command:build', $this->callback(function($arg) {
                 return $arg instanceof BuildMysqlDumpCommand;
+            }));
+
+        $taskRunner
+            ->expects($this->at(4))
+            ->method('add')
+            ->with('env:sync:pull', $this->callback(function($arg) {
+                return $arg instanceof SyncFromRemoteEnv;
             }));
 
         $sut = new EnvToolTaskRunnerExtension();
