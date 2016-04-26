@@ -1,0 +1,42 @@
+{
+    "name": "mashbo/mashbot-envtool-taskrunner-extension",
+    "description": "Provide tasks to synchronise and transfer content between environments",
+    "require": {
+        "mashbo/mashbot-taskrunner": "*@dev",
+        "symfony/process": "~3.0",
+        "mashbo/mashbot-process-taskrunner-extension": "*@dev",
+        "mashbo/mashbot-ssh-taskrunner-extension": "*@dev"
+    },
+    "suggest": {
+        "psr/log": "Add extra logging information"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mashbo\\Mashbot\\Extensions\\EnvToolTaskRunnerExtension\\": "src/",
+            "Mashbo\\Mashbot\\Extensions\\EnvToolTaskRunnerExtension\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Adam Quaile",
+            "email": "aquaile@mashbo.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:Mashbo/mashbot-taskrunner.git"
+        },
+        {
+            "type": "vcs",
+            "url": "ssh://git@gitlab.mashbo.com:5339/mashbot/process-taskrunner-extension.git"
+        },
+        {
+            "type": "vcs",
+            "url": "ssh://git@gitlab.mashbo.com:5339/mashbot/ssh-taskrunner-extension.git"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "~5.3"
+    }
+}
