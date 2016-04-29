@@ -9,6 +9,9 @@ class CopyFilesFromRemote
     public function __invoke(TaskContext $context, $remote, $local)
     {
         $remoteConnection = $remote['connection'];
+        if (!array_key_exists('user', $remoteConnection)) {
+            throw new \InvalidArgumentException('$remote[\'connection\'] must have a user key');
+        }
 
         $portSpec = array_key_exists('port', $remoteConnection)
             ? " -e 'ssh -p{$remoteConnection['port']}'"

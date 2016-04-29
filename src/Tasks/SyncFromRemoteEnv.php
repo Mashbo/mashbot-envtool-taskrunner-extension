@@ -14,7 +14,7 @@ class SyncFromRemoteEnv
             $runner->invoke('env:database:sync:pull', [
                 'remote' => [
                     'database' => $db['remote'],
-                    'connection' => $remote
+                    'connection' => $remote['connection']
                 ],
                 'local' => ['database' => $db['local']]
             ]);
@@ -24,7 +24,7 @@ class SyncFromRemoteEnv
             $runner->invoke('env:files:sync:pull', [
                 'remote' => [
                     'path' => $path['remote'],
-                    'connection' => $remote
+                    'connection' => $remote['connection']
                 ],
                 'local' => [
                     'path' => $path['local']
