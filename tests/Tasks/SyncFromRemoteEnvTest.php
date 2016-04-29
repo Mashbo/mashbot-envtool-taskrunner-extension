@@ -11,8 +11,10 @@ class SyncFromRemoteEnvTest extends TaskTest
     {
         $this->invoke([
             'remote' => [
-                'host' => 'example.com',
-                'user' => 'remote_user'
+                'connection' => [
+                    'host' => 'example.com',
+                    'user' => 'remote_user'
+                ]
             ],
             'databases' => [],
             'paths'     => []
@@ -60,8 +62,10 @@ class SyncFromRemoteEnvTest extends TaskTest
 
         $this->invoke([
             'remote' => [
-                'host' => 'example.com',
-                'user' => 'remote_user'
+                'connection' => [
+                    'host' => 'example.com',
+                    'user' => 'remote_user'
+                ]
             ],
             'databases' => [
                 [
@@ -119,8 +123,10 @@ class SyncFromRemoteEnvTest extends TaskTest
 
         $this->invoke([
             'remote' => [
-                'host' => 'example.com',
-                'user' => 'remote_user'
+                'connection' => [
+                    'host' => 'example.com',
+                    'user' => 'remote_user'
+                ]
             ],
             'databases' => [],
             'paths'     => [
